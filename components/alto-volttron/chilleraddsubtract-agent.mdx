@@ -1,0 +1,220 @@
+---
+title: 'ChillerAddSubtract Agent'
+description: 'Dynamic chiller capacity management agent for Alto Volttron'
+---
+
+## Overview
+
+The ChillerAddSubtract Agent manages the dynamic addition and removal of chillers from operation based on system load requirements. It optimizes the number of active chillers to match cooling demand while maintaining system efficiency and equipment longevity.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Load Management" icon="scale-balanced">
+    Dynamic matching of chiller capacity to cooling demand
+  </Card>
+  <Card title="Staging Control" icon="stairs">
+    Intelligent chiller staging and destaging
+  </Card>
+  <Card title="Equipment Protection" icon="shield">
+    Runtime balancing and wear prevention
+  </Card>
+  <Card title="Efficiency Optimization" icon="leaf">
+    Energy-efficient capacity management
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "control": {
+    "add_threshold": 85,
+    "subtract_threshold": 45,
+    "minimum_runtime": 1800,
+    "staging_delay": 300,
+    "load_evaluation_period": 600
+  },
+  "equipment": {
+    "min_chillers": 1,
+    "max_chillers": 4,
+    "rotation_enabled": true,
+    "rotation_interval": "168h"
+  },
+  "optimization": {
+    "method": "efficiency_based",
+    "parameters": {
+      "efficiency_weight": 0.7,
+      "runtime_weight": 0.3
+    }
+  }
+}
+```
+
+## Operation Modes
+
+<AccordionGroup>
+  <Accordion title="Load-based Operation">
+    - Capacity demand monitoring
+    - Load prediction integration
+    - System efficiency tracking
+    - Dynamic threshold adjustment
+  </Accordion>
+  
+  <Accordion title="Efficiency-based Operation">
+    - COP optimization
+    - Part-load efficiency
+    - Power consumption monitoring
+    - Performance tracking
+  </Accordion>
+  
+  <Accordion title="Runtime Balancing">
+    - Operating hours tracking
+    - Wear management
+    - Rotation scheduling
+    - Maintenance coordination
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Staging Configuration
+
+```python
+# Configure staging parameters
+agent.configure_staging(
+    parameters={
+        "add_threshold": 85,
+        "subtract_threshold": 45,
+        "minimum_runtime": 1800,
+        "evaluation_period": 600,
+        "staging_delay": 300
+    }
+)
+```
+
+### Rotation Setup
+
+```python
+# Configure chiller rotation
+agent.configure_rotation(
+    parameters={
+        "enabled": true,
+        "interval_hours": 168,
+        "evaluation_time": "00:00",
+        "exclude_chillers": ["chiller_03"]
+    }
+)
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="System Configuration">
+    Define chiller parameters and limits
+  </Step>
+  <Step title="Control Strategy">
+    Configure staging and rotation rules
+  </Step>
+  <Step title="Optimization Setup">
+    Set up efficiency optimization parameters
+  </Step>
+  <Step title="Monitoring">
+    Configure performance monitoring
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Staging Strategy" icon="layer-group">
+    - Load analysis
+    - Threshold setting
+    - Timing coordination
+    - Efficiency consideration
+  </Card>
+  <Card title="Equipment Management" icon="gears">
+    - Runtime tracking
+    - Wear monitoring
+    - Maintenance scheduling
+    - Performance optimization
+  </Card>
+  <Card title="System Protection" icon="shield-halved">
+    - Minimum runtime
+    - Cycling prevention
+    - Load stability
+    - Equipment safety
+  </Card>
+  <Card title="Energy Efficiency" icon="bolt">
+    - Load matching
+    - Power optimization
+    - COP maximization
+    - Resource utilization
+  </Card>
+</CardGroup>
+
+## Performance Monitoring
+
+<AccordionGroup>
+  <Accordion title="Capacity Management">
+    - System load tracking
+    - Capacity utilization
+    - Staging effectiveness
+    - Response time
+  </Accordion>
+  
+  <Accordion title="Equipment Health">
+    - Runtime hours
+    - Cycling frequency
+    - Wear indicators
+    - Maintenance timing
+  </Accordion>
+  
+  <Accordion title="System Efficiency">
+    - Energy consumption
+    - COP tracking
+    - Load distribution
+    - Resource utilization
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<CardGroup cols={2}>
+  <Card title="Common Issues" icon="triangle-exclamation">
+    - Frequent cycling
+    - Capacity mismatch
+    - Inefficient staging
+    - Rotation failures
+  </Card>
+  <Card title="Solutions" icon="screwdriver-wrench">
+    - Adjust thresholds
+    - Review timing
+    - Update strategies
+    - Verify sensors
+  </Card>
+</CardGroup>
+
+## Safety Features
+
+<AccordionGroup>
+  <Accordion title="Operation Limits">
+    - Minimum runtime enforcement
+    - Maximum cycling prevention
+    - Load stability requirements
+    - Equipment protection
+  </Accordion>
+  
+  <Accordion title="System Protection">
+    - Emergency shutdown
+    - Fault handling
+    - Override management
+    - Safety interlocks
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Effective chiller staging is crucial for system efficiency and equipment longevity. Regular monitoring and adjustment of staging parameters ensures optimal performance and energy savings.
+</Note> 

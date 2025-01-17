@@ -1,0 +1,215 @@
+---
+title: 'ChillerSequence Agent'
+description: 'Chiller sequencing optimization agent for Alto Volttron'
+---
+
+## Overview
+
+The ChillerSequence Agent optimizes the operation of multiple chillers by determining the most efficient sequence of operation. It considers factors such as load demand, energy efficiency, equipment wear, and operational constraints to make intelligent decisions about chiller staging.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Load Management" icon="chart-line">
+    Dynamic load distribution across multiple chillers
+  </Card>
+  <Card title="Efficiency Optimization" icon="leaf">
+    Energy-efficient sequencing strategies
+  </Card>
+  <Card title="Equipment Protection" icon="shield">
+    Runtime balancing and wear prevention
+  </Card>
+  <Card title="Adaptive Control" icon="brain">
+    Machine learning-based sequence optimization
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "chillers": [
+    {
+      "id": "chiller_01",
+      "capacity": 500,
+      "min_load": 20,
+      "max_load": 100,
+      "efficiency_curve": "default_centrifugal",
+      "priority": 1
+    },
+    {
+      "id": "chiller_02",
+      "capacity": 500,
+      "min_load": 20,
+      "max_load": 100,
+      "efficiency_curve": "default_centrifugal",
+      "priority": 2
+    }
+  ],
+  "control": {
+    "staging": {
+      "method": "efficiency_based",
+      "min_runtime": 1800,
+      "min_offtime": 900,
+      "stage_up_threshold": 85,
+      "stage_down_threshold": 40
+    },
+    "optimization": {
+      "target": "min_power",
+      "constraints": {
+        "max_starts_per_hour": 4,
+        "min_load_per_chiller": 20
+      }
+    }
+  }
+}
+```
+
+## Sequencing Strategies
+
+<AccordionGroup>
+  <Accordion title="Efficiency-based">
+    - Part-load efficiency curves
+    - Power consumption optimization
+    - COP-based staging
+    - Dynamic efficiency tracking
+  </Accordion>
+  
+  <Accordion title="Runtime Balancing">
+    - Equal runtime distribution
+    - Wear-based rotation
+    - Maintenance scheduling
+    - Operating hours tracking
+  </Accordion>
+  
+  <Accordion title="Load-based">
+    - Demand-driven staging
+    - Capacity optimization
+    - Load prediction
+    - Peak management
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Sequence Configuration
+
+```python
+# Configure sequencing strategy
+agent.configure_sequence(
+    strategy="efficiency_based",
+    parameters={
+        "efficiency_weight": 0.7,
+        "runtime_weight": 0.3,
+        "min_stage_interval": 1800
+    }
+)
+```
+
+### Runtime Management
+
+```python
+# Set runtime constraints
+agent.set_runtime_constraints(
+    chiller_id="chiller_01",
+    constraints={
+        "max_daily_runtime": 18,
+        "min_cycle_time": 1800,
+        "max_starts_per_day": 6
+    }
+)
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Chiller Setup">
+    Configure individual chiller parameters
+  </Step>
+  <Step title="Strategy Selection">
+    Choose and configure sequencing strategy
+  </Step>
+  <Step title="Constraint Definition">
+    Set operational constraints and limits
+  </Step>
+  <Step title="Monitoring Setup">
+    Configure performance monitoring
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Sequence Design" icon="sitemap">
+    - Load analysis
+    - Efficiency mapping
+    - Constraint planning
+    - Strategy selection
+  </Card>
+  <Card title="Operation" icon="play">
+    - Runtime monitoring
+    - Performance tracking
+    - Maintenance coordination
+    - Energy optimization
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    - Regular calibration
+    - Strategy updates
+    - Performance review
+    - Configuration backup
+  </Card>
+  <Card title="Optimization" icon="chart-simple">
+    - Efficiency analysis
+    - Load prediction
+    - Strategy refinement
+    - Parameter tuning
+  </Card>
+</CardGroup>
+
+## Performance Metrics
+
+<AccordionGroup>
+  <Accordion title="Energy Efficiency">
+    - System COP
+    - Power consumption
+    - Load distribution
+    - Operating efficiency
+  </Accordion>
+  
+  <Accordion title="Equipment Health">
+    - Runtime hours
+    - Start/stop cycles
+    - Load patterns
+    - Wear indicators
+  </Accordion>
+  
+  <Accordion title="System Performance">
+    - Response time
+    - Staging accuracy
+    - Load matching
+    - Stability metrics
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<CardGroup cols={2}>
+  <Card title="Common Issues" icon="triangle-exclamation">
+    - Frequent cycling
+    - Uneven loading
+    - Inefficient staging
+    - Control instability
+  </Card>
+  <Card title="Solutions" icon="screwdriver-wrench">
+    - Adjust thresholds
+    - Review constraints
+    - Update strategies
+    - Calibrate sensors
+  </Card>
+</CardGroup>
+
+<Note>
+  Proper sequence optimization is crucial for system efficiency. Regularly monitor performance metrics and adjust strategies based on operational data.
+</Note> 

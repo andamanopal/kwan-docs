@@ -1,0 +1,261 @@
+---
+title: 'API Layer'
+description: 'API interface layer of the Forecast Service'
+---
+
+## Overview
+
+The API Layer serves as the primary interface for external systems to interact with the Forecast Service. It provides REST, GraphQL, and gRPC endpoints for forecast requests, model management, and system administration.
+
+## API Interfaces
+
+<CardGroup cols={2}>
+  <Card title="REST API" icon="globe">
+    HTTP-based RESTful interface for general access
+  </Card>
+  <Card title="GraphQL" icon="diagram-project">
+    Flexible query interface for complex data requirements
+  </Card>
+  <Card title="gRPC" icon="bolt">
+    High-performance RPC interface for system integration
+  </Card>
+  <Card title="WebSocket" icon="plug">
+    Real-time updates and streaming data
+  </Card>
+</CardGroup>
+
+## REST API Endpoints
+
+### Forecast Endpoints
+
+```python
+# Get forecast
+POST /api/v1/forecast
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "target": "cooling_load",
+  "building_id": "building_01",
+  "forecast_params": {
+    "horizon": "24h",
+    "resolution": "1h"
+  }
+}
+
+# Get forecast status
+GET /api/v1/forecast/{forecast_id}
+
+# Cancel forecast
+DELETE /api/v1/forecast/{forecast_id}
+```
+
+### Model Management
+
+```python
+# List available models
+GET /api/v1/models
+
+# Get model details
+GET /api/v1/models/{model_id}
+
+# Update model configuration
+PATCH /api/v1/models/{model_id}
+Content-Type: application/json
+
+{
+  "parameters": {
+    "feature_importance_threshold": 0.05,
+    "prediction_interval": 0.95
+  }
+}
+```
+
+## GraphQL Schema
+
+```graphql
+type Forecast {
+  id: ID!
+  target: String!
+  timestamps: [DateTime!]!
+  values: [Float!]!
+  confidenceIntervals: ConfidenceInterval
+  metadata: ForecastMetadata
+}
+
+type ConfidenceInterval {
+  lower: [Float!]!
+  upper: [Float!]!
+  confidence: Float!
+}
+
+type ForecastMetadata {
+  modelVersion: String!
+  generatedAt: DateTime!
+  accuracyMetrics: AccuracyMetrics
+}
+
+type AccuracyMetrics {
+  mape: Float
+  rmse: Float
+  r2: Float
+}
+
+type Query {
+  forecast(input: ForecastInput!): Forecast!
+  forecasts(filter: ForecastFilter): [Forecast!]!
+  model(id: ID!): Model!
+  models(filter: ModelFilter): [Model!]!
+}
+
+type Mutation {
+  createForecast(input: ForecastInput!): Forecast!
+  cancelForecast(id: ID!): Boolean!
+  updateModel(id: ID!, input: ModelUpdateInput!): Model!
+}
+
+type Subscription {
+  forecastUpdated(id: ID!): Forecast!
+  modelStatusChanged(id: ID!): ModelStatus!
+}
+```
+
+## gRPC Service
+
+```protobuf
+syntax = "proto3";
+
+package forecast;
+
+service ForecastService {
+  rpc GetForecast (ForecastRequest) returns (ForecastResponse);
+  rpc StreamForecast (ForecastRequest) returns (stream ForecastUpdate);
+  rpc CancelForecast (CancelRequest) returns (CancelResponse);
+  rpc GetModel (ModelRequest) returns (ModelResponse);
+}
+
+message ForecastRequest {
+  string target = 1;
+  string building_id = 2;
+  ForecastParameters params = 3;
+}
+
+message ForecastResponse {
+  string forecast_id = 1;
+  repeated Timestamp timestamps = 2;
+  repeated double values = 3;
+  ConfidenceIntervals confidence_intervals = 4;
+  Metadata metadata = 5;
+}
+```
+
+## Authentication
+
+<AccordionGroup>
+  <Accordion title="Methods">
+    - API key authentication
+    - JWT tokens
+    - OAuth 2.0
+    - Client certificates
+  </Accordion>
+  
+  <Accordion title="Security">
+    - TLS encryption
+    - Rate limiting
+    - IP whitelisting
+    - Request signing
+  </Accordion>
+</AccordionGroup>
+
+## Request Handling
+
+<Steps>
+  <Step title="Validation">
+    Request validation and sanitization
+  </Step>
+  <Step title="Authentication">
+    Identity verification and authorization
+  </Step>
+  <Step title="Processing">
+    Request processing and routing
+  </Step>
+  <Step title="Response">
+    Response formatting and delivery
+  </Step>
+</Steps>
+
+## Error Handling
+
+### Error Codes
+
+<CardGroup cols={2}>
+  <Card title="Client Errors (4xx)" icon="user">
+    - 400 Bad Request
+    - 401 Unauthorized
+    - 403 Forbidden
+    - 404 Not Found
+  </Card>
+  <Card title="Server Errors (5xx)" icon="server">
+    - 500 Internal Error
+    - 502 Bad Gateway
+    - 503 Service Unavailable
+    - 504 Gateway Timeout
+  </Card>
+</CardGroup>
+
+### Error Response Format
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid request parameters",
+    "details": {
+      "field": "horizon",
+      "reason": "Must be a valid duration string",
+      "provided": "24"
+    },
+    "request_id": "req_123",
+    "timestamp": "2024-01-17T10:30:00Z"
+  }
+}
+```
+
+## Rate Limiting
+
+<AccordionGroup>
+  <Accordion title="Limits">
+    - Request quotas
+    - Concurrent connections
+    - Bandwidth limits
+    - Burst allowance
+  </Accordion>
+  
+  <Accordion title="Implementation">
+    - Token bucket algorithm
+    - Window limiting
+    - Custom quotas
+    - Rate tracking
+  </Accordion>
+</AccordionGroup>
+
+## API Versioning
+
+<CardGroup cols={2}>
+  <Card title="Version Control" icon="code-branch">
+    - Semantic versioning
+    - API versioning
+    - Endpoint versioning
+    - Schema evolution
+  </Card>
+  <Card title="Compatibility" icon="handshake">
+    - Backward compatibility
+    - Forward compatibility
+    - Breaking changes
+    - Migration support
+  </Card>
+</CardGroup>
+
+<Note>
+  The API Layer is designed for reliability, security, and ease of use. Regular updates and monitoring ensure it meets the evolving needs of clients while maintaining performance and security standards.
+</Note> 

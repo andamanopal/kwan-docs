@@ -1,0 +1,122 @@
+---
+title: 'UI Helpers'
+description: 'Utility components for building Alto Niagara user interfaces'
+---
+
+## Overview
+
+UI Helpers are a collection of reusable components and utilities that simplify the creation of user interfaces in Alto Niagara. These components are designed to maintain consistency across the application while reducing development time.
+
+## Available Components
+
+<CardGroup cols={2}>
+  <Card title="Gauge Widgets" icon="gauge">
+    Customizable gauges for displaying numerical values and status
+  </Card>
+  <Card title="Status Indicators" icon="circle-check">
+    Visual indicators for equipment status and alarms
+  </Card>
+  <Card title="Chart Components" icon="chart-line">
+    Pre-configured charts for time-series data visualization
+  </Card>
+  <Card title="Control Panels" icon="sliders">
+    Standardized control interfaces for equipment operation
+  </Card>
+</CardGroup>
+
+## Usage Examples
+
+### Gauge Widget
+
+```javascript
+<AltoGauge
+  value={temperature}
+  min={0}
+  max={100}
+  units="°C"
+  alarmThresholds={{
+    high: 80,
+    low: 20
+  }}
+/>
+```
+
+### Status Indicator
+
+```javascript
+<AltoStatus
+  status={equipmentStatus}
+  labels={{
+    running: "Operational",
+    stopped: "Offline",
+    fault: "Error"
+  }}
+/>
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Component Selection">
+    Choose the appropriate component based on:
+    - Data type being displayed
+    - Space constraints
+    - User interaction requirements
+    - Performance considerations
+  </Accordion>
+  
+  <Accordion title="Customization">
+    When customizing components:
+    - Maintain consistent styling
+    - Use predefined color schemes
+    - Follow accessibility guidelines
+    - Test responsiveness
+  </Accordion>
+  
+  <Accordion title="Performance">
+    Optimize component usage by:
+    - Limiting unnecessary updates
+    - Using appropriate data refresh rates
+    - Implementing lazy loading
+    - Managing component lifecycle
+  </Accordion>
+</AccordionGroup>
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Import Components">
+    Import required components from the UI helpers package
+  </Step>
+  <Step title="Configure Properties">
+    Set up component properties according to requirements
+  </Step>
+  <Step title="Handle Events">
+    Implement necessary event handlers
+  </Step>
+  <Step title="Test Integration">
+    Verify component behavior in different scenarios
+  </Step>
+</Steps>
+
+<Note>
+  All UI helper components are designed to work seamlessly with Alto Niagara's data binding system. Make sure to follow the proper data binding patterns when integrating components.
+</Note>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Common Issues">
+    - Component not rendering
+    - Incorrect data display
+    - Performance problems
+    - Style conflicts
+  </Accordion>
+  
+  <Accordion title="Solutions">
+    - Verify component imports
+    - Check data binding
+    - Review browser console
+    - Validate styling hierarchy
+  </Accordion>
+</AccordionGroup> 

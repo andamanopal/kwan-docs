@@ -1,0 +1,226 @@
+---
+title: 'SCHPControl Agent'
+description: 'Secondary Chilled Water Pump Control Agent for Alto Volttron'
+---
+
+## Overview
+
+The SCHPControl (Secondary Chilled Water Pump Control) Agent optimizes the operation of secondary chilled water pumps in the HVAC system. It manages pump speeds, flow rates, and pressure differentials to maintain efficient distribution of chilled water while minimizing energy consumption.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Flow Control" icon="water">
+    Dynamic management of chilled water flow rates
+  </Card>
+  <Card title="Pressure Management" icon="gauge">
+    Differential pressure control and optimization
+  </Card>
+  <Card title="Energy Optimization" icon="bolt">
+    Pump speed optimization for energy efficiency
+  </Card>
+  <Card title="System Protection" icon="shield">
+    Safeguards against cavitation and system stress
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "pumps": [
+    {
+      "id": "schp_01",
+      "type": "variable_speed",
+      "capacity": {
+        "flow_rate": 1000,
+        "units": "GPM"
+      },
+      "speed_limits": {
+        "min": 20,
+        "max": 100
+      }
+    }
+  ],
+  "control": {
+    "pressure": {
+      "setpoint": 15,
+      "units": "PSI",
+      "deadband": 1,
+      "reset": {
+        "enabled": true,
+        "min_setpoint": 10,
+        "max_setpoint": 20
+      }
+    },
+    "flow": {
+      "min_flow": 100,
+      "units": "GPM",
+      "optimization": {
+        "enabled": true,
+        "method": "load_based"
+      }
+    }
+  }
+}
+```
+
+## Control Strategies
+
+<AccordionGroup>
+  <Accordion title="Pressure Control">
+    - Differential pressure maintenance
+    - Dynamic pressure reset
+    - Minimum pressure protection
+    - System balance management
+  </Accordion>
+  
+  <Accordion title="Flow Management">
+    - Variable flow control
+    - Minimum flow protection
+    - Flow distribution optimization
+    - System efficiency tracking
+  </Accordion>
+  
+  <Accordion title="Energy Optimization">
+    - Speed optimization
+    - Load-based control
+    - Power consumption management
+    - Efficiency maximization
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Pressure Control Setup
+
+```python
+# Configure pressure control
+agent.configure_pressure_control(
+    pump_id="schp_01",
+    parameters={
+        "setpoint": 15,
+        "deadband": 1,
+        "reset_enabled": true,
+        "reset_parameters": {
+            "min_setpoint": 10,
+            "max_setpoint": 20,
+            "reset_interval": 300
+        }
+    }
+)
+```
+
+### Flow Management
+
+```python
+# Configure flow management
+agent.configure_flow_control(
+    pump_id="schp_01",
+    parameters={
+        "min_flow": 100,
+        "max_flow": 1000,
+        "optimization": {
+            "method": "load_based",
+            "parameters": {
+                "load_factor": 0.8,
+                "response_time": 120
+            }
+        }
+    }
+)
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Pump Configuration">
+    Set up pump parameters and limits
+  </Step>
+  <Step title="Control Strategy">
+    Configure control methods and setpoints
+  </Step>
+  <Step title="Protection Setup">
+    Define safety limits and protections
+  </Step>
+  <Step title="Optimization">
+    Configure efficiency optimization parameters
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="System Design" icon="drafting-compass">
+    - Proper sizing
+    - System curves
+    - Operating points
+    - Control zones
+  </Card>
+  <Card title="Operation" icon="play">
+    - Speed control
+    - Pressure management
+    - Flow balancing
+    - Energy monitoring
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    - Regular calibration
+    - Performance checks
+    - Sensor validation
+    - System tuning
+  </Card>
+  <Card title="Safety" icon="shield-halved">
+    - Cavitation prevention
+    - Pressure protection
+    - Flow limitations
+    - Emergency procedures
+  </Card>
+</CardGroup>
+
+## Performance Metrics
+
+<AccordionGroup>
+  <Accordion title="Hydraulic Performance">
+    - Flow rates
+    - Pressure differentials
+    - System balance
+    - Distribution efficiency
+  </Accordion>
+  
+  <Accordion title="Energy Performance">
+    - Power consumption
+    - Specific power
+    - System efficiency
+    - Energy savings
+  </Accordion>
+  
+  <Accordion title="System Health">
+    - Pump status
+    - Operating conditions
+    - Maintenance indicators
+    - System stability
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<CardGroup cols={2}>
+  <Card title="Common Issues" icon="triangle-exclamation">
+    - Pressure fluctuations
+    - Flow imbalances
+    - Energy inefficiency
+    - Control instability
+  </Card>
+  <Card title="Solutions" icon="screwdriver-wrench">
+    - Calibrate sensors
+    - Adjust setpoints
+    - Review curves
+    - Tune parameters
+  </Card>
+</CardGroup>
+
+<Note>
+  Proper secondary pump control is essential for system efficiency and stability. Regular monitoring and optimization of control parameters ensures optimal performance and energy savings.
+</Note> 

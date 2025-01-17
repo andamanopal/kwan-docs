@@ -1,0 +1,204 @@
+---
+title: 'MongoDB Agent'
+description: 'MongoDB integration agent for Alto Volttron'
+---
+
+## Overview
+
+The MongoDB Agent manages the interaction between Alto Volttron and MongoDB databases. It handles configuration storage, historical data archival, and provides a persistent storage solution for non-time-series data within the platform.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Data Storage" icon="database">
+    Persistent storage for configuration and operational data
+  </Card>
+  <Card title="Query Interface" icon="magnifying-glass">
+    Flexible query capabilities for data retrieval
+  </Card>
+  <Card title="Data Management" icon="folder-tree">
+    Collection organization and lifecycle management
+  </Card>
+  <Card title="Backup Support" icon="clock-rotate-left">
+    Automated backup and recovery features
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "connection": {
+    "host": "localhost",
+    "port": 27017,
+    "database": "alto_volttron",
+    "username": "alto_user",
+    "password": "your_password",
+    "auth_source": "admin"
+  },
+  "collections": {
+    "config": {
+      "name": "system_config",
+      "indexes": ["component_id"]
+    },
+    "device_data": {
+      "name": "device_metadata",
+      "indexes": ["device_id", "timestamp"]
+    }
+  },
+  "backup": {
+    "enabled": true,
+    "schedule": "0 0 * * *",
+    "retention_days": 30
+  }
+}
+```
+
+## Data Models
+
+<AccordionGroup>
+  <Accordion title="Configuration Data">
+    - System settings
+    - Agent configurations
+    - Device parameters
+    - User preferences
+  </Accordion>
+  
+  <Accordion title="Device Metadata">
+    - Equipment information
+    - Maintenance records
+    - Operational history
+    - Configuration changes
+  </Accordion>
+  
+  <Accordion title="Operational Data">
+    - Event logs
+    - Alarm history
+    - User actions
+    - System states
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Data Storage
+
+```python
+# Store configuration data
+agent.store_config(
+    component_id="chiller_01",
+    config_data={
+        "type": "centrifugal",
+        "capacity": "500TR",
+        "control_params": {
+            "min_load": 20,
+            "max_load": 100
+        }
+    }
+)
+```
+
+### Data Retrieval
+
+```python
+# Query device metadata
+results = agent.query_metadata(
+    filter_criteria={
+        "device_type": "chiller",
+        "location": "building_01"
+    },
+    sort={
+        "timestamp": -1
+    },
+    limit=10
+)
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Database Setup">
+    Configure MongoDB instance and access
+  </Step>
+  <Step title="Collection Design">
+    Plan data organization and indexes
+  </Step>
+  <Step title="Access Control">
+    Set up authentication and permissions
+  </Step>
+  <Step title="Backup Planning">
+    Configure backup strategy and schedule
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Data Organization" icon="folder-tree">
+    - Logical collection structure
+    - Proper indexing strategy
+    - Document schema design
+    - Version control
+  </Card>
+  <Card title="Performance" icon="gauge">
+    - Query optimization
+    - Index utilization
+    - Connection pooling
+    - Bulk operations
+  </Card>
+  <Card title="Security" icon="shield">
+    - Access control
+    - Encryption
+    - Audit logging
+    - Secure configuration
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    - Regular backups
+    - Index maintenance
+    - Data cleanup
+    - Health monitoring
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Common Issues">
+    - Connection failures
+    - Query performance
+    - Data consistency
+    - Backup failures
+  </Accordion>
+  
+  <Accordion title="Solutions">
+    - Check network connectivity
+    - Review indexes
+    - Validate data integrity
+    - Monitor system resources
+  </Accordion>
+</AccordionGroup>
+
+## Data Management
+
+### Collection Types
+
+<CardGroup cols={2}>
+  <Card title="System Collections" icon="gear">
+    Core system configuration and metadata
+  </Card>
+  <Card title="Device Collections" icon="microchip">
+    Equipment-specific data and history
+  </Card>
+  <Card title="Operational Collections" icon="chart-simple">
+    Runtime data and statistics
+  </Card>
+  <Card title="Archive Collections" icon="box-archive">
+    Historical data and backups
+  </Card>
+</CardGroup>
+
+<Note>
+  Proper database management is crucial for system reliability. Regularly monitor database performance, maintain indexes, and verify backup integrity.
+</Note> 

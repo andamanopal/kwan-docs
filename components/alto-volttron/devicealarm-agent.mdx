@@ -1,0 +1,215 @@
+---
+title: 'DeviceAlarm Agent'
+description: 'Device monitoring and alarm management agent for Alto Volttron'
+---
+
+## Overview
+
+The DeviceAlarm Agent manages device-level alarms and alerts within the Alto Volttron platform. It monitors device status, processes alarm conditions, and manages notification workflows for equipment-specific issues.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Alarm Monitoring" icon="bell">
+    Real-time monitoring of device alarm conditions
+  </Card>
+  <Card title="Alert Management" icon="triangle-exclamation">
+    Comprehensive alert handling and escalation
+  </Card>
+  <Card title="Notification System" icon="envelope">
+    Configurable notification delivery system
+  </Card>
+  <Card title="History Tracking" icon="clock-rotate-left">
+    Alarm history and trend analysis
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "devices": {
+    "chiller_01": {
+      "enabled": true,
+      "priority": "high",
+      "alarm_points": [
+        {
+          "point": "status",
+          "condition": "!=",
+          "value": "running",
+          "severity": "critical"
+        },
+        {
+          "point": "temperature",
+          "condition": ">",
+          "value": 45,
+          "severity": "warning"
+        }
+      ]
+    }
+  },
+  "notifications": {
+    "email": {
+      "enabled": true,
+      "recipients": {
+        "critical": ["operations@example.com"],
+        "warning": ["maintenance@example.com"]
+      }
+    },
+    "sms": {
+      "enabled": true,
+      "critical_only": true,
+      "recipients": ["+1234567890"]
+    }
+  }
+}
+```
+
+## Alarm Types
+
+<AccordionGroup>
+  <Accordion title="Status Alarms">
+    - Equipment state changes
+    - Operational mode violations
+    - Communication failures
+    - Power status changes
+  </Accordion>
+  
+  <Accordion title="Threshold Alarms">
+    - Temperature limits
+    - Pressure boundaries
+    - Flow rate ranges
+    - Power consumption limits
+  </Accordion>
+  
+  <Accordion title="Performance Alarms">
+    - Efficiency degradation
+    - Capacity issues
+    - Runtime violations
+    - Cycling problems
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Configuring Alarms
+
+```python
+# Add new alarm configuration
+agent.add_alarm(
+    device_id="chiller_01",
+    point_name="discharge_pressure",
+    condition={
+        "operator": ">",
+        "value": 150,
+        "severity": "critical",
+        "delay": 30
+    }
+)
+```
+
+### Managing Notifications
+
+```python
+# Configure notification rules
+agent.configure_notifications(
+    device_id="chiller_01",
+    rules={
+        "critical": {
+            "channels": ["email", "sms"],
+            "escalation_delay": 300
+        },
+        "warning": {
+            "channels": ["email"],
+            "escalation_delay": 1800
+        }
+    }
+)
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Device Configuration">
+    Set up device monitoring parameters
+  </Step>
+  <Step title="Alarm Rules">
+    Define alarm conditions and thresholds
+  </Step>
+  <Step title="Notification Setup">
+    Configure notification channels and recipients
+  </Step>
+  <Step title="Testing">
+    Verify alarm triggering and notification delivery
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Alarm Configuration" icon="gear">
+    - Clear condition definitions
+    - Appropriate thresholds
+    - Meaningful descriptions
+    - Priority levels
+  </Card>
+  <Card title="Notification Management" icon="bell">
+    - Targeted recipient lists
+    - Escalation procedures
+    - Acknowledgment tracking
+    - Alert aggregation
+  </Card>
+  <Card title="System Performance" icon="gauge">
+    - Polling optimization
+    - Resource management
+    - Network efficiency
+    - Storage optimization
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    - Regular rule review
+    - Contact list updates
+    - System health checks
+    - Performance monitoring
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Common Issues">
+    - Missed alarms
+    - False triggers
+    - Notification delays
+    - Configuration errors
+  </Accordion>
+  
+  <Accordion title="Solutions">
+    - Verify configurations
+    - Check communication
+    - Test notification paths
+    - Review log files
+  </Accordion>
+</AccordionGroup>
+
+## Alarm History
+
+<CardGroup cols={2}>
+  <Card title="Storage" icon="database">
+    Historical alarm data storage and retention
+  </Card>
+  <Card title="Analysis" icon="chart-line">
+    Trend analysis and pattern detection
+  </Card>
+  <Card title="Reporting" icon="file">
+    Custom report generation and export
+  </Card>
+  <Card title="Auditing" icon="list-check">
+    Alarm response tracking and compliance
+  </Card>
+</CardGroup>
+
+<Note>
+  Proper alarm configuration and management is critical for system reliability. Regularly review and update alarm rules and notification settings to maintain effective monitoring.
+</Note> 

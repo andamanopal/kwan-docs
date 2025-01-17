@@ -1,0 +1,78 @@
+---
+title: 'Overview'
+description: 'Learn about the Alto CERO and Alto Chiller Plant Management System'
+---
+
+The Alto CERO and Alto Chiller Plant Management System (CPMS) is designed to optimize energy efficiency in large-scale buildings with complex HVAC systems. It leverages AI, machine learning, and IoT technologies to enhance operational performance, reduce energy consumption, and improve comfort levels for occupants. The system integrates two primary frameworks—**Niagara** and **Volttron**—working together to control, monitor, and optimize building systems in real time.
+
+## Core Components
+
+Apart from Niagara and Volttron themselves, the system includes several additional components playing a critical role in creating a seamless, intelligent, and energy-efficient building management solution:
+
+<CardGroup cols={2}>
+  <Card title="MongoDB Database" icon="database">
+    Stores configuration settings, agent data, and historical records, allowing for persistent data access and retrieval, even during system downtimes.
+  </Card>
+  <Card title="ETL Pipeline" icon="gears">
+    Manages data extraction, transformation, and loading processes, ensuring clean and usable data is available for analysis and reporting.
+  </Card>
+  <Card title="Data Analytics Dashboard" icon="chart-line">
+    Provides real-time insights and visualization of system performance metrics, energy consumption trends, and other key indicators, enabling data-driven decision-making.
+  </Card>
+</CardGroup>
+
+## Framework Responsibilities
+
+### Niagara
+
+<AccordionGroup>
+  <Accordion title="Infrastructure Layer">
+    Niagara manages the underlying infrastructure of the chiller plant by polling data from connected devices. It works seamlessly with protocols such as BACnet and Modbus to facilitate device communication.
+  </Accordion>
+  <Accordion title="Basic Logic">
+    Niagara handles simple automation logic, like generating alarm alerts and keeping track of chiller plant status. For example, it triggers maintenance alerts based on predefined thresholds or conditions.
+  </Accordion>
+  <Accordion title="Basic Settings">
+    Niagara manages fundamental system settings, including equipment maintenance status, alarm reset, and manual overrides.
+  </Accordion>
+  <Accordion title="Map User Interface">
+    Niagara provides the 3D graphic interface that maps out the chiller plant, displaying real-time system data, equipment status, and alert notifications. This is also the page where operator can send manual controls to the machines.
+  </Accordion>
+</AccordionGroup>
+
+### Volttron
+
+<AccordionGroup>
+  <Accordion title="Alto Applications">
+    Our applications will be built based on Volttron agents here.
+  </Accordion>
+  <Accordion title="Advanced Automation Layer">
+    Volttron is responsible for executing advanced control algorithms, such as AI-powered energy optimization and predictive maintenance. It uses machine learning to refine control strategies based on historical data.
+  </Accordion>
+  <Accordion title="Communication Layer">
+    Volttron communicates with Niagara over BACnet, allowing for real-time data exchange and control commands to ensure efficient system-wide coordination.
+  </Accordion>
+</AccordionGroup>
+
+## Control Flow Management
+
+Given the increasing number of control inputs (from manual commands, Volttron, Niagara, and legacy BAS systems not within Alto's scope), it's crucial to manage these inputs effectively. The current control handling process follows this flow:
+
+<Steps>
+  <Step title="Manual Command">
+    If a manual command is given, it bypasses the automated processes and becomes the **Actual Command** directly.
+  </Step>
+  <Step title="Legacy BAS/CPMS Automation">
+    If an older Building Automation System (BAS) or CPMS automation logic is in use (likely due to a preference to preserve old logic), a command may come from that system. **If Volttron is disconnected or the system is in legacy mode**, this legacy command will be used as an input to the **Auto Command**.
+  </Step>
+  <Step title="Alto Fail-Safe Schedule">
+    This represents commands based on Alto's built-in fail-safe logic. If **Volttron is disconnected and Fail-Safe is enabled**, this input will be used for the **Auto Command**.
+  </Step>
+  <Step title="Volttron">
+    Under normal circumstances, Volttron provides commands based on advanced control algorithms. These commands are used for the **Auto Command** unless Volttron is disconnected.
+  </Step>
+</Steps>
+
+<Note>
+This logic will be implemented within the Niagara framework. If Alto is deployed to customers through a partner who manages Niagara integrations, we will provide them with an N4 module to handle this logic. Please refer to the [Alto Niagara](/components/alto-niagara) section for more details.
+</Note> 

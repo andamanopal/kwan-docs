@@ -1,0 +1,198 @@
+---
+title: 'WeatherTMD Agent'
+description: 'Weather data integration agent for Thai Meteorological Department'
+---
+
+## Overview
+
+The WeatherTMD Agent integrates weather data from the Thai Meteorological Department (TMD) into the Alto Volttron platform. It provides real-time and forecast weather data for optimizing building operations based on environmental conditions.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Real-time Data" icon="cloud-sun">
+    Current weather conditions and measurements
+  </Card>
+  <Card title="Forecasting" icon="chart-line">
+    Weather predictions for optimization planning
+  </Card>
+  <Card title="Historical Data" icon="clock-rotate-left">
+    Access to historical weather patterns
+  </Card>
+  <Card title="Location Support" icon="location-dot">
+    Multi-location weather data handling
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "tmd_api": {
+    "token": "your_api_token",
+    "base_url": "https://api.tmd.go.th/v1",
+    "refresh_interval": 300
+  },
+  "locations": [
+    {
+      "name": "Bangkok",
+      "latitude": 13.7563,
+      "longitude": 100.5018,
+      "station_id": "48455"
+    }
+  ],
+  "data_types": [
+    "temperature",
+    "humidity",
+    "rainfall",
+    "wind_speed",
+    "solar_radiation"
+  ]
+}
+```
+
+## Usage Examples
+
+### Fetching Current Weather
+
+```python
+# Get current weather for a location
+weather = agent.get_current_weather(
+    location_name="Bangkok"
+)
+
+# Get specific weather parameter
+temperature = agent.get_parameter(
+    location_name="Bangkok",
+    parameter="temperature"
+)
+```
+
+### Weather Forecasting
+
+```python
+# Get weather forecast
+forecast = agent.get_forecast(
+    location_name="Bangkok",
+    hours_ahead=24
+)
+
+# Get specific forecast parameter
+temp_forecast = agent.get_parameter_forecast(
+    location_name="Bangkok",
+    parameter="temperature",
+    hours_ahead=24
+)
+```
+
+## Data Types
+
+<AccordionGroup>
+  <Accordion title="Basic Parameters">
+    - Temperature (°C)
+    - Relative Humidity (%)
+    - Rainfall (mm)
+    - Wind Speed (m/s)
+    - Wind Direction (degrees)
+  </Accordion>
+  
+  <Accordion title="Advanced Parameters">
+    - Solar Radiation (W/m²)
+    - Cloud Cover (%)
+    - Atmospheric Pressure (hPa)
+    - Visibility (km)
+    - UV Index
+  </Accordion>
+</AccordionGroup>
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="API Setup">
+    Obtain TMD API credentials
+  </Step>
+  <Step title="Location Configuration">
+    Configure monitoring locations
+  </Step>
+  <Step title="Data Integration">
+    Set up data collection and storage
+  </Step>
+  <Step title="Validation">
+    Verify data accuracy and reliability
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Data Collection" icon="database">
+    - Regular polling intervals
+    - Error handling
+    - Data validation
+    - Backup procedures
+  </Card>
+  <Card title="API Usage" icon="code">
+    - Rate limit compliance
+    - Token management
+    - Request optimization
+    - Error handling
+  </Card>
+  <Card title="Data Storage" icon="hard-drive">
+    - Efficient storage format
+    - Data retention policy
+    - Backup strategy
+    - Access control
+  </Card>
+  <Card title="Integration" icon="plug">
+    - Real-time updates
+    - System synchronization
+    - Data transformation
+    - Quality checks
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Common Issues">
+    - API connection failures
+    - Data inconsistencies
+    - Rate limit exceeded
+    - Missing data points
+  </Accordion>
+  
+  <Accordion title="Solutions">
+    - Check API status
+    - Verify credentials
+    - Review rate limits
+    - Validate data format
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Weather data is crucial for optimal building operation. Ensure reliable data collection and proper error handling for consistent operation.
+</Note>
+
+## API Reference
+
+### Endpoints
+
+<ResponseField name="Current Weather" type="GET">
+  `/weather/current/{station_id}`
+  
+  Retrieves current weather data for a specific station
+</ResponseField>
+
+<ResponseField name="Forecast" type="GET">
+  `/weather/forecast/{station_id}`
+  
+  Retrieves weather forecast data for a specific station
+</ResponseField>
+
+<ResponseField name="Historical Data" type="GET">
+  `/weather/historical/{station_id}`
+  
+  Retrieves historical weather data for a specific station
+</ResponseField> 

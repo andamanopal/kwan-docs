@@ -1,0 +1,228 @@
+---
+title: 'TimescaleDB'
+description: 'Time-series database for high-performance data storage and analysis'
+---
+
+## Overview
+
+TimescaleDB serves as the primary time-series database in the Alto platform, optimized for storing and analyzing large volumes of time-series data from sensors, equipment, and operational metrics. It provides high-performance storage and retrieval capabilities with advanced time-based query features.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Time-Series Storage" icon="clock">
+    Optimized storage for time-series data
+  </Card>
+  <Card title="Query Performance" icon="bolt">
+    High-speed data retrieval and analysis
+  </Card>
+  <Card title="Data Management" icon="database">
+    Efficient data lifecycle management
+  </Card>
+  <Card title="Scalability" icon="arrows-up-down-left-right">
+    Horizontal and vertical scaling capabilities
+  </Card>
+</CardGroup>
+
+## Data Architecture
+
+### Schema Design
+
+```sql
+-- Sensor data hypertable
+CREATE TABLE sensor_data (
+  time        TIMESTAMPTZ NOT NULL,
+  sensor_id   TEXT NOT NULL,
+  location    TEXT,
+  value       DOUBLE PRECISION,
+  unit        TEXT,
+  quality     INTEGER,
+  PRIMARY KEY (time, sensor_id)
+);
+
+-- Create hypertable with 1-day chunks
+SELECT create_hypertable('sensor_data', 'time',
+  chunk_time_interval => INTERVAL '1 day');
+
+-- Equipment performance hypertable
+CREATE TABLE equipment_performance (
+  time        TIMESTAMPTZ NOT NULL,
+  equipment_id TEXT NOT NULL,
+  metric_name TEXT NOT NULL,
+  value       DOUBLE PRECISION,
+  PRIMARY KEY (time, equipment_id, metric_name)
+);
+
+SELECT create_hypertable('equipment_performance', 'time',
+  chunk_time_interval => INTERVAL '1 day');
+```
+
+## Data Management
+
+<AccordionGroup>
+  <Accordion title="Partitioning Strategy">
+    - Time-based chunking
+    - Space partitioning
+    - Retention policies
+    - Compression settings
+  </Accordion>
+  
+  <Accordion title="Data Lifecycle">
+    - Data ingestion
+    - Continuous aggregation
+    - Data retention
+    - Archival process
+  </Accordion>
+  
+  <Accordion title="Performance Optimization">
+    - Index management
+    - Query optimization
+    - Resource allocation
+    - Cache configuration
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Data Insertion
+
+```sql
+-- Single point insertion
+INSERT INTO sensor_data (time, sensor_id, location, value, unit)
+VALUES (NOW(), 'temp_001', 'building_01', 23.5, 'C');
+
+-- Batch insertion
+INSERT INTO sensor_data (time, sensor_id, location, value, unit)
+SELECT
+  generate_series(
+    NOW() - INTERVAL '1 hour',
+    NOW(),
+    INTERVAL '1 minute'
+  ),
+  'temp_001',
+  'building_01',
+  random() * 10 + 20,
+  'C';
+```
+
+### Query Examples
+
+```sql
+-- Time-based aggregation
+SELECT
+  time_bucket('15 minutes', time) AS interval,
+  sensor_id,
+  avg(value) AS avg_value,
+  max(value) AS max_value,
+  min(value) AS min_value
+FROM sensor_data
+WHERE
+  time > NOW() - INTERVAL '24 hours'
+  AND sensor_id LIKE 'temp_%'
+GROUP BY interval, sensor_id
+ORDER BY interval DESC;
+
+-- Continuous aggregation
+CREATE MATERIALIZED VIEW sensor_data_hourly
+WITH (timescaledb.continuous) AS
+SELECT
+  time_bucket('1 hour', time) AS bucket,
+  sensor_id,
+  avg(value) AS avg_value,
+  max(value) AS max_value,
+  min(value) AS min_value
+FROM sensor_data
+GROUP BY bucket, sensor_id;
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Database Setup">
+    Configure TimescaleDB instance
+  </Step>
+  <Step title="Schema Design">
+    Create tables and hypertables
+  </Step>
+  <Step title="Data Pipeline">
+    Set up data ingestion flows
+  </Step>
+  <Step title="Optimization">
+    Configure performance settings
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Data Model" icon="table">
+    - Schema optimization
+    - Partition strategy
+    - Index design
+    - Compression policy
+  </Card>
+  <Card title="Performance" icon="gauge">
+    - Query optimization
+    - Resource management
+    - Cache tuning
+    - Connection pooling
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    - Regular vacuum
+    - Index maintenance
+    - Statistics update
+    - Health monitoring
+  </Card>
+  <Card title="Backup" icon="clock-rotate-left">
+    - Backup strategy
+    - Recovery planning
+    - Point-in-time recovery
+    - Retention policy
+  </Card>
+</CardGroup>
+
+## Performance Optimization
+
+<AccordionGroup>
+  <Accordion title="Query Optimization">
+    - Index utilization
+    - Query planning
+    - Execution analysis
+    - Performance tuning
+  </Accordion>
+  
+  <Accordion title="Resource Management">
+    - Memory allocation
+    - Disk I/O
+    - CPU utilization
+    - Connection management
+  </Accordion>
+  
+  <Accordion title="Scaling Strategy">
+    - Vertical scaling
+    - Horizontal scaling
+    - Partitioning
+    - Distribution
+  </Accordion>
+</AccordionGroup>
+
+## Monitoring
+
+<CardGroup cols={2}>
+  <Card title="Performance Metrics" icon="chart-line">
+    Query performance and resource usage tracking
+  </Card>
+  <Card title="Health Checks" icon="heart-pulse">
+    System health and availability monitoring
+  </Card>
+  <Card title="Storage Analysis" icon="hard-drive">
+    Space usage and growth tracking
+  </Card>
+  <Card title="Query Analysis" icon="magnifying-glass-chart">
+    Query patterns and optimization opportunities
+  </Card>
+</CardGroup>
+
+<Note>
+  Proper TimescaleDB configuration and maintenance are essential for optimal time-series data management. Regular monitoring and optimization ensure consistent performance and reliability.
+</Note> 

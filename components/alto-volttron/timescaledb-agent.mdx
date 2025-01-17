@@ -1,0 +1,149 @@
+---
+title: 'TimescaleDB Agent'
+description: 'Time-series data management agent for Alto Volttron'
+---
+
+## Overview
+
+The TimescaleDB Agent is responsible for managing time-series data within the Alto Volttron platform. It handles data storage, retrieval, and management operations for sensor readings, control signals, and other time-series data.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Data Storage" icon="database">
+    Efficient storage of time-series data with automatic partitioning
+  </Card>
+  <Card title="Query Interface" icon="magnifying-glass">
+    Advanced querying capabilities with time-based operations
+  </Card>
+  <Card title="Data Retention" icon="clock">
+    Configurable retention policies and data lifecycle management
+  </Card>
+  <Card title="Performance" icon="gauge">
+    Optimized for high-throughput time-series operations
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "connection": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "alto_timescale",
+    "user": "alto_user",
+    "password": "your_password"
+  },
+  "tables": {
+    "sensor_data": {
+      "retention_days": 365,
+      "chunk_interval": "1 day"
+    },
+    "control_signals": {
+      "retention_days": 90,
+      "chunk_interval": "1 hour"
+    }
+  }
+}
+```
+
+## Usage Examples
+
+### Writing Data
+
+```python
+agent.write_point(
+    table="sensor_data",
+    tags={
+        "device_id": "chiller_01",
+        "sensor_type": "temperature"
+    },
+    fields={
+        "value": 23.5,
+        "unit": "celsius"
+    },
+    timestamp="2024-01-17T10:00:00Z"
+)
+```
+
+### Querying Data
+
+```python
+results = agent.query_data(
+    table="sensor_data",
+    start_time="2024-01-16T00:00:00Z",
+    end_time="2024-01-17T00:00:00Z",
+    tags={
+        "device_id": "chiller_01"
+    },
+    aggregation="avg",
+    interval="1h"
+)
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Data Model Design">
+    - Use appropriate data types
+    - Define proper indexes
+    - Plan partitioning strategy
+    - Consider query patterns
+  </Accordion>
+  
+  <Accordion title="Performance Optimization">
+    - Batch write operations
+    - Use appropriate chunk intervals
+    - Implement data retention policies
+    - Monitor resource usage
+  </Accordion>
+  
+  <Accordion title="Maintenance">
+    - Regular vacuum operations
+    - Index maintenance
+    - Backup strategy
+    - Monitoring and alerting
+  </Accordion>
+</AccordionGroup>
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Database Setup">
+    Install and configure TimescaleDB
+  </Step>
+  <Step title="Agent Configuration">
+    Configure connection and table settings
+  </Step>
+  <Step title="Data Model">
+    Define tables and indexes
+  </Step>
+  <Step title="Integration Testing">
+    Verify data flow and query performance
+  </Step>
+</Steps>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Common Issues">
+    - Connection failures
+    - Slow queries
+    - Data insertion errors
+    - Resource constraints
+  </Accordion>
+  
+  <Accordion title="Solutions">
+    - Check connection settings
+    - Review query plans
+    - Verify data types
+    - Monitor system resources
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  The TimescaleDB Agent is critical for system performance. Ensure proper monitoring and maintenance procedures are in place.
+</Note> 

@@ -1,0 +1,41 @@
+---
+title: 'System Architecture'
+description: 'Understanding the Alto system architecture and component interactions'
+---
+
+<Frame>
+  <img src="/images/system-architecture.png" alt="Alto System Architecture" />
+</Frame>
+
+## Key Components
+
+<CardGroup cols={2}>
+  <Card title="Niagara Framework" icon="building">
+    The foundation layer that handles device communication, basic automation, and user interface.
+  </Card>
+  <Card title="Volttron Platform" icon="microchip">
+    Advanced control and optimization layer powered by AI and machine learning.
+  </Card>
+  <Card title="Database Systems" icon="database">
+    MongoDB for configuration and TimescaleDB for time-series data storage.
+  </Card>
+  <Card title="ML Services" icon="brain">
+    Specialized services for forecasting and Model Predictive Control (MPC).
+  </Card>
+</CardGroup>
+
+## Communication Flow
+
+The system uses a combination of protocols and interfaces to ensure seamless communication between components:
+
+<Steps>
+  <Step title="Device Level">
+    BACnet and Modbus protocols for device communication
+  </Step>
+  <Step title="Integration Level">
+    RESTful APIs and message queues for service communication
+  </Step>
+  <Step title="Application Level">
+    Web interfaces and dashboards for user interaction
+  </Step>
+</Steps> 

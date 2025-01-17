@@ -1,0 +1,181 @@
+---
+title: 'BACnet Agent'
+description: 'BACnet protocol integration agent for Alto Volttron'
+---
+
+## Overview
+
+The BACnet Agent enables communication between Alto Volttron and BACnet-enabled devices. It handles device discovery, data polling, and command execution for building automation equipment using the BACnet protocol.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Device Discovery" icon="magnifying-glass">
+    Automatic discovery and registration of BACnet devices
+  </Card>
+  <Card title="Data Polling" icon="rotate">
+    Configurable polling intervals for different data points
+  </Card>
+  <Card title="Command Interface" icon="terminal">
+    Write operations and command execution support
+  </Card>
+  <Card title="Device Management" icon="server">
+    Device configuration and monitoring capabilities
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "device_scan_interval": 300,
+  "default_proxy_address": "192.168.1.100",
+  "networks": [
+    {
+      "network": 1234,
+      "address": "192.168.1.0/24",
+      "device_id_range": {
+        "min": 1,
+        "max": 4194303
+      }
+    }
+  ],
+  "points": {
+    "poll_interval": 300,
+    "groups": [
+      {
+        "name": "critical",
+        "interval": 60,
+        "points": ["temp_sensor_1", "pressure_sensor_1"]
+      }
+    ]
+  }
+}
+```
+
+## Usage Examples
+
+### Device Discovery
+
+```python
+# Start device discovery
+agent.discover_devices(
+    network_number=1234,
+    address_range="192.168.1.0/24"
+)
+
+# Get discovered devices
+devices = agent.get_devices()
+```
+
+### Reading Points
+
+```python
+# Read a single point
+value = agent.read_point(
+    device_id=123,
+    object_type="analogValue",
+    object_instance=1
+)
+
+# Read multiple points
+values = agent.read_points([
+    {"device_id": 123, "object_type": "analogValue", "instance": 1},
+    {"device_id": 123, "object_type": "binaryValue", "instance": 2}
+])
+```
+
+## Device Management
+
+<AccordionGroup>
+  <Accordion title="Discovery Process">
+    - Network scanning
+    - Device registration
+    - Point mapping
+    - Configuration storage
+  </Accordion>
+  
+  <Accordion title="Point Configuration">
+    - Object types
+    - Instance numbers
+    - Engineering units
+    - Polling intervals
+  </Accordion>
+  
+  <Accordion title="Security">
+    - Device authentication
+    - Network segmentation
+    - Access control
+    - Command validation
+  </Accordion>
+</AccordionGroup>
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Network Setup">
+    Configure BACnet network settings
+  </Step>
+  <Step title="Device Discovery">
+    Run initial device discovery
+  </Step>
+  <Step title="Point Configuration">
+    Configure points and polling
+  </Step>
+  <Step title="Integration Testing">
+    Verify communication and data flow
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Network Design" icon="network-wired">
+    - Proper network segmentation
+    - Bandwidth management
+    - Router configuration
+    - Collision domain planning
+  </Card>
+  <Card title="Device Configuration" icon="gear">
+    - Unique device IDs
+    - Consistent naming
+    - Point organization
+    - Priority settings
+  </Card>
+  <Card title="Performance" icon="gauge">
+    - Optimal polling intervals
+    - COV subscription usage
+    - Network load balancing
+    - Resource monitoring
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    - Regular health checks
+    - Configuration backups
+    - Network monitoring
+    - Error logging
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Common Issues">
+    - Device not responding
+    - Network timeouts
+    - Point read failures
+    - Write operation errors
+  </Accordion>
+  
+  <Accordion title="Solutions">
+    - Check network connectivity
+    - Verify device configuration
+    - Review BACnet settings
+    - Monitor network traffic
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  The BACnet Agent is critical for device communication. Ensure proper network configuration and monitoring are in place for reliable operation.
+</Note> 

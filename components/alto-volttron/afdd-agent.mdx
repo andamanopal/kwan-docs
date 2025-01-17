@@ -1,0 +1,190 @@
+---
+title: 'AFDD Agent'
+description: 'Automated Fault Detection and Diagnostics Agent for Alto Volttron'
+---
+
+## Overview
+
+The AFDD (Automated Fault Detection and Diagnostics) Agent continuously monitors system performance to identify potential issues and anomalies in building equipment operation. It uses advanced analytics and machine learning to detect faults early and provide diagnostic information.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Real-time Monitoring" icon="magnifying-glass-chart">
+    Continuous monitoring of equipment performance metrics
+  </Card>
+  <Card title="Fault Detection" icon="triangle-exclamation">
+    Advanced algorithms for identifying operational anomalies
+  </Card>
+  <Card title="Diagnostics" icon="stethoscope">
+    Detailed analysis of fault causes and impacts
+  </Card>
+  <Card title="Reporting" icon="file-lines">
+    Comprehensive fault reporting and notification system
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "monitoring": {
+    "interval": 300,
+    "equipment_types": ["chiller", "pump", "cooling_tower"],
+    "threshold_config": "default_thresholds.json"
+  },
+  "analysis": {
+    "methods": ["statistical", "rule_based", "ml_based"],
+    "sensitivity": "medium",
+    "learning_period": "30d"
+  },
+  "notifications": {
+    "email": {
+      "enabled": true,
+      "recipients": ["operations@example.com"]
+    },
+    "severity_levels": ["critical", "warning", "info"]
+  }
+}
+```
+
+## Fault Detection Methods
+
+<AccordionGroup>
+  <Accordion title="Statistical Analysis">
+    - Deviation from normal operation patterns
+    - Statistical process control
+    - Trend analysis
+    - Outlier detection
+  </Accordion>
+  
+  <Accordion title="Rule-based Detection">
+    - Predefined operational rules
+    - Equipment-specific thresholds
+    - Performance benchmarks
+    - Safety limits
+  </Accordion>
+  
+  <Accordion title="Machine Learning">
+    - Anomaly detection models
+    - Pattern recognition
+    - Predictive analytics
+    - Performance degradation analysis
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Monitoring Setup
+
+```python
+# Configure equipment monitoring
+agent.configure_monitoring(
+    equipment_id="chiller_01",
+    parameters=["COP", "approach_temp", "power_consumption"],
+    thresholds={
+        "COP_min": 4.0,
+        "approach_temp_max": 5.0
+    }
+)
+```
+
+### Fault Analysis
+
+```python
+# Analyze equipment performance
+results = agent.analyze_performance(
+    equipment_id="chiller_01",
+    time_range={
+        "start": "2024-01-16T00:00:00Z",
+        "end": "2024-01-17T00:00:00Z"
+    }
+)
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Equipment Setup">
+    Configure equipment parameters and thresholds
+  </Step>
+  <Step title="Data Collection">
+    Set up data collection and preprocessing
+  </Step>
+  <Step title="Analysis Configuration">
+    Configure detection methods and sensitivity
+  </Step>
+  <Step title="Notification Setup">
+    Configure alerting and reporting
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Data Quality" icon="database">
+    - Regular sensor calibration
+    - Data validation rules
+    - Missing data handling
+    - Noise filtering
+  </Card>
+  <Card title="Alert Management" icon="bell">
+    - Priority levels
+    - Alert aggregation
+    - Notification routing
+    - Escalation procedures
+  </Card>
+  <Card title="Performance Tuning" icon="gauge">
+    - Threshold optimization
+    - Detection sensitivity
+    - Analysis frequency
+    - Resource usage
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    - Regular model updates
+    - Rule refinement
+    - Performance review
+    - Configuration backup
+  </Card>
+</CardGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Common Issues">
+    - False positives
+    - Missed detections
+    - Alert storms
+    - Performance degradation
+  </Accordion>
+  
+  <Accordion title="Solutions">
+    - Adjust thresholds
+    - Review detection rules
+    - Update ML models
+    - Optimize monitoring frequency
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Regular maintenance and tuning of the AFDD Agent is crucial for optimal fault detection performance. Monitor false positive rates and detection accuracy to maintain system reliability.
+</Note>
+
+## Fault Categories
+
+<CardGroup cols={2}>
+  <Card title="Operational Faults" icon="gear">
+    Equipment operating outside normal parameters
+  </Card>
+  <Card title="Performance Faults" icon="chart-line">
+    Efficiency and performance degradation
+  </Card>
+  <Card title="Mechanical Faults" icon="screwdriver-wrench">
+    Physical equipment issues and failures
+  </Card>
+  <Card title="Control Faults" icon="sliders">
+    Issues with control systems and sequences
+  </Card>
+</CardGroup> 

@@ -1,0 +1,213 @@
+---
+title: 'ChillerSchedule Agent'
+description: 'Chiller scheduling and operation timing management agent for Alto Volttron'
+---
+
+## Overview
+
+The ChillerSchedule Agent manages the operational schedules of chillers in the system. It coordinates start/stop timing, maintenance windows, and operational periods based on building occupancy, demand forecasts, and energy optimization goals.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Schedule Management" icon="calendar">
+    Comprehensive scheduling system for chiller operations
+  </Card>
+  <Card title="Optimization" icon="chart-line">
+    Schedule optimization based on demand and efficiency
+  </Card>
+  <Card title="Maintenance Planning" icon="wrench">
+    Coordination of maintenance windows and downtimes
+  </Card>
+  <Card title="Demand Response" icon="bolt">
+    Schedule adaptation for demand response events
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "schedules": {
+    "weekday": {
+      "start_time": "06:00",
+      "stop_time": "19:00",
+      "pre_cool": {
+        "enabled": true,
+        "duration": "01:00"
+      }
+    },
+    "weekend": {
+      "start_time": "08:00",
+      "stop_time": "17:00",
+      "pre_cool": {
+        "enabled": false
+      }
+    }
+  },
+  "holidays": {
+    "enabled": true,
+    "calendar_file": "holidays.json"
+  },
+  "optimization": {
+    "demand_based": true,
+    "weather_dependent": true,
+    "min_runtime": 1800,
+    "max_starts_per_day": 4
+  }
+}
+```
+
+## Schedule Types
+
+<AccordionGroup>
+  <Accordion title="Regular Operation">
+    - Daily schedules
+    - Weekly patterns
+    - Holiday schedules
+    - Special events
+  </Accordion>
+  
+  <Accordion title="Maintenance">
+    - Planned maintenance
+    - Service windows
+    - Equipment rotation
+    - Emergency maintenance
+  </Accordion>
+  
+  <Accordion title="Demand Response">
+    - Peak shaving periods
+    - Load shifting
+    - Emergency curtailment
+    - Grid response events
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Schedule Configuration
+
+```python
+# Set up regular operation schedule
+agent.configure_schedule(
+    schedule_type="regular",
+    parameters={
+        "days": ["monday", "tuesday", "wednesday", "thursday", "friday"],
+        "start_time": "06:00",
+        "end_time": "19:00",
+        "pre_cooling": {
+            "enabled": true,
+            "duration_minutes": 60
+        }
+    }
+)
+```
+
+### Maintenance Planning
+
+```python
+# Schedule maintenance window
+agent.schedule_maintenance(
+    chiller_id="chiller_01",
+    window={
+        "start": "2024-02-01T08:00:00Z",
+        "duration_hours": 4,
+        "type": "preventive",
+        "description": "Annual maintenance"
+    }
+)
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Schedule Setup">
+    Configure basic operational schedules
+  </Step>
+  <Step title="Optimization Rules">
+    Define schedule optimization parameters
+  </Step>
+  <Step title="Exception Handling">
+    Configure holiday and special event handling
+  </Step>
+  <Step title="Integration Testing">
+    Verify schedule execution and coordination
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Schedule Design" icon="calendar-days">
+    - Occupancy alignment
+    - Load profile matching
+    - Energy rate consideration
+    - Maintenance coordination
+  </Card>
+  <Card title="Optimization" icon="chart-simple">
+    - Weather integration
+    - Demand forecasting
+    - Runtime balancing
+    - Energy efficiency
+  </Card>
+  <Card title="Reliability" icon="shield">
+    - Redundancy planning
+    - Failure recovery
+    - Emergency procedures
+    - Backup schedules
+  </Card>
+  <Card title="Monitoring" icon="gauge">
+    - Schedule adherence
+    - Performance tracking
+    - Exception logging
+    - Energy impact
+  </Card>
+</CardGroup>
+
+## Schedule Optimization
+
+<AccordionGroup>
+  <Accordion title="Load-based Optimization">
+    - Demand forecasting
+    - Load profile analysis
+    - Capacity planning
+    - Peak management
+  </Accordion>
+  
+  <Accordion title="Energy Cost Optimization">
+    - Time-of-use rates
+    - Peak demand charges
+    - Utility incentives
+    - Demand response
+  </Accordion>
+  
+  <Accordion title="Comfort Optimization">
+    - Occupancy patterns
+    - Temperature requirements
+    - Pre-cooling strategies
+    - Recovery periods
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<CardGroup cols={2}>
+  <Card title="Common Issues" icon="triangle-exclamation">
+    - Schedule conflicts
+    - Timing misalignment
+    - Optimization failures
+    - Integration issues
+  </Card>
+  <Card title="Solutions" icon="screwdriver-wrench">
+    - Verify configurations
+    - Check dependencies
+    - Review constraints
+    - Update parameters
+  </Card>
+</CardGroup>
+
+<Note>
+  Effective schedule management is crucial for system efficiency and reliability. Regular review and adjustment of schedules ensures optimal operation and energy usage.
+</Note> 

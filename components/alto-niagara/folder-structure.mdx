@@ -1,0 +1,80 @@
+---
+title: 'Folder Structure'
+description: 'Understanding the Alto Niagara module organization'
+---
+
+## Module Organization
+
+The Alto Niagara module follows a standard Niagara module structure with additional Alto-specific components:
+
+```bash
+alto-niagara/
+├── module-info.xml      # Module metadata and dependencies
+├── module.palette       # Palette definitions for Workbench
+├── src/
+│   ├── alto/
+│   │   ├── control/    # Control logic components
+│   │   ├── points/     # Point definitions and handlers
+│   │   └── ui/        # User interface components
+│   └── resources/     # Static resources and configurations
+└── vendor/           # Third-party dependencies
+```
+
+## Key Directories
+
+<AccordionGroup>
+  <Accordion title="Control Logic">
+    The `control` directory contains components for:
+    - Basic automation rules
+    - Scheduling logic
+    - Alarm handling
+    - Integration with Volttron
+  </Accordion>
+  
+  <Accordion title="Points">
+    The `points` directory includes:
+    - Point definitions
+    - Point handlers
+    - Point extensions
+    - Custom point types
+  </Accordion>
+  
+  <Accordion title="User Interface">
+    The `ui` directory contains:
+    - Custom widgets
+    - 3D visualization components
+    - Dashboard elements
+    - PX page templates
+  </Accordion>
+  
+  <Accordion title="Resources">
+    The `resources` directory includes:
+    - Configuration templates
+    - Default settings
+    - Localization files
+    - Static assets
+  </Accordion>
+</AccordionGroup>
+
+## Development Guidelines
+
+When working with the Alto Niagara module:
+
+<Steps>
+  <Step title="Follow Naming Conventions">
+    Use the `alto` prefix for all custom components
+  </Step>
+  <Step title="Maintain Module Structure">
+    Keep related components in their respective directories
+  </Step>
+  <Step title="Document Changes">
+    Update module-info.xml when adding new components
+  </Step>
+  <Step title="Test Integration">
+    Verify compatibility with Volttron components
+  </Step>
+</Steps>
+
+<Note>
+  All custom components should be placed in the appropriate subdirectory under `src/alto/` to maintain proper organization and prevent conflicts with other modules.
+</Note> 

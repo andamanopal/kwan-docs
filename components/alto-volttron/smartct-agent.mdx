@@ -1,0 +1,247 @@
+---
+title: 'SmartCT Agent'
+description: 'Smart Cooling Tower optimization agent for Alto Volttron'
+---
+
+## Overview
+
+The SmartCT (Smart Cooling Tower) Agent provides intelligent control and optimization of cooling tower operations. It manages fan speeds, water flow rates, and temperature setpoints to maximize cooling efficiency while minimizing energy consumption and water usage.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Temperature Control" icon="temperature-half">
+    Dynamic management of condenser water temperature
+  </Card>
+  <Card title="Fan Control" icon="fan">
+    Intelligent fan speed optimization
+  </Card>
+  <Card title="Water Management" icon="droplet">
+    Water conservation and quality control
+  </Card>
+  <Card title="Energy Optimization" icon="bolt">
+    Power consumption optimization for fans and pumps
+  </Card>
+</CardGroup>
+
+## Configuration
+
+### Basic Setup
+
+```python
+{
+  "cooling_tower": {
+    "id": "ct_01",
+    "type": "counter_flow",
+    "capacity": {
+      "heat_rejection": 2000,
+      "units": "tons"
+    },
+    "fans": [
+      {
+        "id": "fan_01",
+        "type": "variable_speed",
+        "speed_limits": {
+          "min": 20,
+          "max": 100
+        }
+      }
+    ]
+  },
+  "control": {
+    "temperature": {
+      "setpoint": {
+        "value": 29.4,
+        "units": "C",
+        "reset": {
+          "enabled": true,
+          "min": 23.9,
+          "max": 32.2,
+          "wetbulb_approach": 2.8
+        }
+      }
+    },
+    "fan": {
+      "staging": {
+        "method": "temperature_based",
+        "deadband": 1.1
+      }
+    }
+  }
+}
+```
+
+## Control Strategies
+
+<AccordionGroup>
+  <Accordion title="Temperature Control">
+    - Wetbulb approach optimization
+    - Dynamic setpoint reset
+    - Load-based adjustment
+    - Weather compensation
+  </Accordion>
+  
+  <Accordion title="Fan Management">
+    - Speed optimization
+    - Staging control
+    - Vibration monitoring
+    - Energy efficiency
+  </Accordion>
+  
+  <Accordion title="Water Management">
+    - Flow optimization
+    - Quality monitoring
+    - Blowdown control
+    - Treatment scheduling
+  </Accordion>
+</AccordionGroup>
+
+## Usage Examples
+
+### Temperature Control Setup
+
+```python
+# Configure temperature control
+agent.configure_temperature_control(
+    parameters={
+        "setpoint": 29.4,
+        "reset_enabled": true,
+        "reset_parameters": {
+            "min_setpoint": 23.9,
+            "max_setpoint": 32.2,
+            "wetbulb_approach": 2.8,
+            "evaluation_interval": 300
+        }
+    }
+)
+```
+
+### Fan Control Setup
+
+```python
+# Configure fan control
+agent.configure_fan_control(
+    fan_id="fan_01",
+    parameters={
+        "control_method": "temperature_based",
+        "speed_limits": {
+            "min": 20,
+            "max": 100
+        },
+        "staging": {
+            "temperature_deadband": 1.1,
+            "minimum_runtime": 300
+        }
+    }
+)
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Equipment Setup">
+    Configure cooling tower parameters
+  </Step>
+  <Step title="Control Strategy">
+    Define control methods and setpoints
+  </Step>
+  <Step title="Optimization">
+    Set up efficiency optimization rules
+  </Step>
+  <Step title="Monitoring">
+    Configure performance tracking
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Operation Strategy" icon="gears">
+    - Load matching
+    - Weather adaptation
+    - Efficiency optimization
+    - Resource management
+  </Card>
+  <Card title="Maintenance" icon="wrench">
+    - Regular inspection
+    - Performance monitoring
+    - Water treatment
+    - Component care
+  </Card>
+  <Card title="Energy Efficiency" icon="leaf">
+    - Fan optimization
+    - Temperature control
+    - System integration
+    - Power management
+  </Card>
+  <Card title="Water Conservation" icon="droplet">
+    - Flow optimization
+    - Quality control
+    - Treatment efficiency
+    - Usage monitoring
+  </Card>
+</CardGroup>
+
+## Performance Metrics
+
+<AccordionGroup>
+  <Accordion title="Thermal Performance">
+    - Approach temperature
+    - Heat rejection rate
+    - Water temperature
+    - System efficiency
+  </Accordion>
+  
+  <Accordion title="Energy Performance">
+    - Fan power consumption
+    - System efficiency
+    - COP contribution
+    - Resource utilization
+  </Accordion>
+  
+  <Accordion title="Water Management">
+    - Water consumption
+    - Quality parameters
+    - Treatment effectiveness
+    - Conservation metrics
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<CardGroup cols={2}>
+  <Card title="Common Issues" icon="triangle-exclamation">
+    - Temperature control
+    - Fan performance
+    - Water quality
+    - System efficiency
+  </Card>
+  <Card title="Solutions" icon="screwdriver-wrench">
+    - Calibrate sensors
+    - Adjust parameters
+    - Maintain components
+    - Optimize control
+  </Card>
+</CardGroup>
+
+## Environmental Considerations
+
+<AccordionGroup>
+  <Accordion title="Water Conservation">
+    - Usage optimization
+    - Recycling strategies
+    - Loss prevention
+    - Quality management
+  </Accordion>
+  
+  <Accordion title="Energy Efficiency">
+    - Power optimization
+    - Carbon footprint
+    - Resource utilization
+    - Performance tracking
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Smart cooling tower management is essential for overall system efficiency. Regular monitoring and optimization of control parameters ensures optimal performance while minimizing resource consumption.
+</Note> 

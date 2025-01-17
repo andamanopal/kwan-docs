@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Alto Documentation",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -18,74 +18,79 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:support@alto.tech"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://dashboard.alto.tech"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
-  ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "overview",
+        "system-architecture"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Components",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "components/alto-niagara/index",
+        "components/alto-niagara/folder-structure",
+        "components/alto-niagara/ui-helpers",
+        "components/alto-volttron/index",
+        "components/alto-volttron/timescaledb-agent",
+        "components/alto-volttron/bacnet-agent",
+        "components/alto-volttron/weathertmd-agent",
+        "components/alto-volttron/afdd-agent",
+        "components/alto-volttron/devicealarm-agent",
+        "components/alto-volttron/mongodb-agent",
+        "components/alto-volttron/chillersequence-agent",
+        "components/alto-volttron/chillerschedule-agent",
+        "components/alto-volttron/schpcontrol-agent",
+        "components/alto-volttron/chilleraddsubtract-agent",
+        "components/alto-volttron/smartct-agent",
+        "components/mongodb-database",
+        "components/etl-pipeline",
+        "components/timescaledb"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "ML Services",
       "pages": [
-        "api-reference/introduction"
+        "components/ml-service/forecast-service/index",
+        "components/ml-service/forecast-service/architecture-overview",
+        "components/ml-service/forecast-service/request-flow",
+        {
+          "group": "Layers",
+          "pages": [
+            "components/ml-service/forecast-service/layers/api-layer",
+            "components/ml-service/forecast-service/layers/model-layer",
+            "components/ml-service/forecast-service/layers/service-layer",
+            "components/ml-service/forecast-service/layers/utils-layer",
+            "components/ml-service/forecast-service/layers/core-layer"
+          ]
+        }
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Deployment",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "deployment/index",
+        "deployment/azure-iot-edge-setup",
+        "deployment/azure-iot-edge-modules"
+      ]
+    },
+    {
+      "group": "Troubleshooting",
+      "pages": [
+        "troubleshooting/index",
+        "troubleshooting/niagara-guidelines"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "github": "https://github.com/alto-tech"
   }
-}
+} 

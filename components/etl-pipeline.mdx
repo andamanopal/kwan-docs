@@ -1,0 +1,225 @@
+---
+title: 'ETL Pipeline'
+description: 'Data extraction, transformation, and loading pipeline for Alto platform'
+---
+
+## Overview
+
+The ETL (Extract, Transform, Load) Pipeline manages the flow of data between different components of the Alto platform. It handles data collection from various sources, performs necessary transformations, and loads the processed data into appropriate storage systems.
+
+## Features
+
+<CardGroup cols={2}>
+  <Card title="Data Extraction" icon="download">
+    Collection of data from multiple sources and protocols
+  </Card>
+  <Card title="Data Transformation" icon="arrows-rotate">
+    Processing and standardization of collected data
+  </Card>
+  <Card title="Data Loading" icon="database">
+    Efficient storage of processed data in target systems
+  </Card>
+  <Card title="Pipeline Management" icon="diagram-project">
+    Monitoring and control of data flow processes
+  </Card>
+</CardGroup>
+
+## Architecture
+
+### Pipeline Components
+
+```bash
+etl_pipeline/
+├── extractors/          # Data source connectors
+├── transformers/        # Data processing modules
+├── loaders/            # Storage system interfaces
+├── validators/         # Data validation rules
+└── orchestrator/       # Pipeline coordination
+```
+
+## Data Flow Stages
+
+<AccordionGroup>
+  <Accordion title="Extraction">
+    - Source connectivity
+    - Data collection
+    - Protocol handling
+    - Buffer management
+  </Accordion>
+  
+  <Accordion title="Transformation">
+    - Data cleaning
+    - Format conversion
+    - Aggregation
+    - Enrichment
+  </Accordion>
+  
+  <Accordion title="Loading">
+    - Target system integration
+    - Data persistence
+    - Batch processing
+    - Stream handling
+  </Accordion>
+</AccordionGroup>
+
+## Configuration
+
+### Pipeline Setup
+
+```python
+{
+  "sources": [
+    {
+      "type": "bacnet",
+      "config": {
+        "network": "192.168.1.0/24",
+        "scan_interval": 300,
+        "points": ["temp", "pressure", "flow"]
+      }
+    },
+    {
+      "type": "modbus",
+      "config": {
+        "host": "192.168.1.100",
+        "port": 502,
+        "registers": [
+          {"address": 1000, "type": "holding", "size": 2}
+        ]
+      }
+    }
+  ],
+  "transformations": [
+    {
+      "type": "unit_conversion",
+      "rules": [
+        {"from": "F", "to": "C"},
+        {"from": "PSI", "to": "kPa"}
+      ]
+    },
+    {
+      "type": "aggregation",
+      "window": "5m",
+      "functions": ["avg", "max", "min"]
+    }
+  ],
+  "targets": [
+    {
+      "type": "timescaledb",
+      "config": {
+        "table": "sensor_data",
+        "batch_size": 1000,
+        "flush_interval": 60
+      }
+    }
+  ]
+}
+```
+
+## Integration Guidelines
+
+<Steps>
+  <Step title="Source Configuration">
+    Set up data source connections
+  </Step>
+  <Step title="Transform Rules">
+    Define data transformation rules
+  </Step>
+  <Step title="Target Setup">
+    Configure storage system integration
+  </Step>
+  <Step title="Pipeline Validation">
+    Test and validate data flow
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Data Quality" icon="check-double">
+    - Validation rules
+    - Error handling
+    - Data cleansing
+    - Quality monitoring
+  </Card>
+  <Card title="Performance" icon="gauge">
+    - Batch processing
+    - Stream optimization
+    - Resource management
+    - Load balancing
+  </Card>
+  <Card title="Reliability" icon="shield">
+    - Error recovery
+    - Data consistency
+    - Pipeline monitoring
+    - Backup procedures
+  </Card>
+  <Card title="Scalability" icon="arrows-up-down-left-right">
+    - Horizontal scaling
+    - Load distribution
+    - Resource allocation
+    - Capacity planning
+  </Card>
+</CardGroup>
+
+## Monitoring and Management
+
+<AccordionGroup>
+  <Accordion title="Performance Metrics">
+    - Processing throughput
+    - Latency measurements
+    - Resource utilization
+    - Queue statistics
+  </Accordion>
+  
+  <Accordion title="Health Monitoring">
+    - Pipeline status
+    - Error rates
+    - System health
+    - Resource usage
+  </Accordion>
+  
+  <Accordion title="Maintenance">
+    - Regular checks
+    - Performance tuning
+    - Error resolution
+    - Configuration updates
+  </Accordion>
+</AccordionGroup>
+
+## Error Handling
+
+<Steps>
+  <Step title="Detection">
+    Identify data and processing errors
+  </Step>
+  <Step title="Recovery">
+    Implement error recovery procedures
+  </Step>
+  <Step title="Logging">
+    Record error details and context
+  </Step>
+  <Step title="Resolution">
+    Apply fixes and prevent recurrence
+  </Step>
+</Steps>
+
+## Pipeline Extensions
+
+<CardGroup cols={2}>
+  <Card title="Custom Extractors" icon="plug">
+    Integration with new data sources
+  </Card>
+  <Card title="Transform Rules" icon="code">
+    Custom data transformation logic
+  </Card>
+  <Card title="Load Adapters" icon="database">
+    New storage system integration
+  </Card>
+  <Card title="Validators" icon="check">
+    Custom validation rules
+  </Card>
+</CardGroup>
+
+<Note>
+  Efficient ETL pipeline management is crucial for data integrity and system performance. Regular monitoring and maintenance ensure reliable data processing and delivery.
+</Note> 

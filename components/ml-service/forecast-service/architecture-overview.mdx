@@ -1,0 +1,249 @@
+---
+title: 'Architecture Overview'
+description: 'Detailed architecture of the Forecast Service system'
+---
+
+## System Architecture
+
+The Forecast Service follows a layered architecture design that separates concerns and promotes modularity, scalability, and maintainability.
+
+```mermaid
+graph TB
+    subgraph API Layer
+        A[REST API]
+        B[GraphQL API]
+        C[gRPC Services]
+    end
+    
+    subgraph Service Layer
+        D[Forecast Manager]
+        E[Model Manager]
+        F[Data Manager]
+    end
+    
+    subgraph Model Layer
+        G[Model Registry]
+        H[Training Pipeline]
+        I[Inference Engine]
+    end
+    
+    subgraph Data Layer
+        J[Data Pipeline]
+        K[Feature Store]
+        L[Model Store]
+    end
+    
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    D --> F
+    E --> G
+    E --> H
+    E --> I
+    F --> J
+    F --> K
+    G --> L
+```
+
+## Layer Descriptions
+
+<AccordionGroup>
+  <Accordion title="API Layer">
+    - REST API endpoints
+    - GraphQL interface
+    - gRPC services
+    - Authentication/Authorization
+    - Request validation
+  </Accordion>
+  
+  <Accordion title="Service Layer">
+    - Business logic coordination
+    - Request processing
+    - Response formatting
+    - Error handling
+    - Service orchestration
+  </Accordion>
+  
+  <Accordion title="Model Layer">
+    - Model lifecycle management
+    - Training coordination
+    - Inference processing
+    - Model versioning
+    - Performance monitoring
+  </Accordion>
+  
+  <Accordion title="Data Layer">
+    - Data ingestion
+    - Feature engineering
+    - Data validation
+    - Storage management
+    - Cache coordination
+  </Accordion>
+</AccordionGroup>
+
+## Component Interactions
+
+### Request Flow
+
+<Steps>
+  <Step title="API Request">
+    Client sends request through API endpoints
+  </Step>
+  <Step title="Service Processing">
+    Request validation and business logic execution
+  </Step>
+  <Step title="Model Interaction">
+    Model selection and inference processing
+  </Step>
+  <Step title="Data Access">
+    Feature retrieval and data processing
+  </Step>
+</Steps>
+
+## Key Components
+
+<CardGroup cols={2}>
+  <Card title="Model Registry" icon="book">
+    - Model versioning
+    - Metadata storage
+    - Deployment tracking
+    - Performance history
+  </Card>
+  <Card title="Feature Store" icon="database">
+    - Feature management
+    - Data versioning
+    - Cache management
+    - Access control
+  </Card>
+  <Card title="Training Pipeline" icon="gears">
+    - Model training
+    - Hyperparameter optimization
+    - Validation process
+    - Deployment automation
+  </Card>
+  <Card title="Inference Engine" icon="bolt">
+    - Real-time predictions
+    - Batch processing
+    - Load balancing
+    - Performance optimization
+  </Card>
+</CardGroup>
+
+## Data Flow
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant A as API Layer
+    participant S as Service Layer
+    participant M as Model Layer
+    participant D as Data Layer
+    
+    C->>A: Request Forecast
+    A->>S: Process Request
+    S->>D: Get Features
+    D->>S: Return Features
+    S->>M: Get Prediction
+    M->>S: Return Prediction
+    S->>A: Format Response
+    A->>C: Return Forecast
+```
+
+## Scalability Design
+
+<AccordionGroup>
+  <Accordion title="Horizontal Scaling">
+    - API load balancing
+    - Service replication
+    - Model distribution
+    - Data partitioning
+  </Accordion>
+  
+  <Accordion title="Vertical Scaling">
+    - Resource allocation
+    - Performance optimization
+    - Cache management
+    - Query optimization
+  </Accordion>
+  
+  <Accordion title="Distributed Processing">
+    - Batch processing
+    - Parallel training
+    - Distributed inference
+    - Load distribution
+  </Accordion>
+</AccordionGroup>
+
+## System Integration
+
+<CardGroup cols={2}>
+  <Card title="External Systems" icon="plug">
+    - Weather services
+    - Building management systems
+    - Time series databases
+    - Monitoring systems
+  </Card>
+  <Card title="Internal Services" icon="network-wired">
+    - Authentication service
+    - Logging service
+    - Monitoring service
+    - Storage service
+  </Card>
+</CardGroup>
+
+## Deployment Architecture
+
+```mermaid
+graph TB
+    subgraph Production
+        A[Load Balancer]
+        B[API Servers]
+        C[Service Servers]
+        D[Model Servers]
+        E[Data Servers]
+    end
+    
+    subgraph Storage
+        F[Model Storage]
+        G[Feature Store]
+        H[Time Series DB]
+    end
+    
+    A --> B
+    B --> C
+    C --> D
+    C --> E
+    D --> F
+    E --> G
+    E --> H
+```
+
+## Security Architecture
+
+<AccordionGroup>
+  <Accordion title="Authentication">
+    - API key management
+    - Token-based auth
+    - OAuth integration
+    - Role management
+  </Accordion>
+  
+  <Accordion title="Authorization">
+    - Role-based access
+    - Resource permissions
+    - Scope management
+    - Policy enforcement
+  </Accordion>
+  
+  <Accordion title="Data Security">
+    - Encryption at rest
+    - Encryption in transit
+    - Access logging
+    - Audit trails
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  The architecture is designed for scalability, reliability, and maintainability. Regular review and updates ensure it meets evolving system requirements and performance needs.
+</Note> 
